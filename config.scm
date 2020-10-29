@@ -14,7 +14,7 @@
   (locale "en_US.utf8")
   (timezone "Asia/Shanghai")
   (keyboard-layout (keyboard-layout "us"))
-  (host-name "KeaiGuixMi")
+  (host-name "KeaiGuix")
   (users (cons* (user-account
                   (name "keke")
                   (comment "Shike Liu")
@@ -27,6 +27,7 @@
     (append
       (list (specification->package "emacs")
             (specification->package "emacs-exwm")
+            (specification->package "btrfs-progs")	    
             (specification->package
               "emacs-desktop-environment")
             (specification->package "nss-certs"))
@@ -54,9 +55,11 @@
              (mount-point "/")
              (device "/dev/mapper/root")
              (type "btrfs")
+	     (options "compress-force=zstd:9")
              (dependencies mapped-devices))
            (file-system
              (mount-point "/boot/efi")
              (device (uuid "8C99-3639" 'fat32))
              (type "vfat"))
-           %base-file-systems)))
+           %base-file-systems))
+   (swap-devices '("/var/swapfile")))
