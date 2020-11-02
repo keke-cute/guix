@@ -26,6 +26,7 @@
                 (supplementary-groups
                  '("wheel" "netdev" "audio" "video")))
                %base-user-accounts))
+
  ;; System app list
  (packages
   (append
@@ -33,7 +34,6 @@
 	`("nss-certs"
 	  "ranger"
 	  "grim"
-	  "slurp"
 	  "neofetch"
 	  "alsa-utils"
 	  "librime"
@@ -46,12 +46,15 @@
 	  "swayidle"
 	  "alacritty"
 	  "rust"
+	  "font-awesome"
+          "imv"
 	  "go"))
    %base-packages))
 
  ;; Base services
  (services
   (cons*
+   (service openssh-service-type)
    (service sddm-service-type)
    (modify-services
     ;; Remove GDM.
