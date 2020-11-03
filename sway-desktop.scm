@@ -2,7 +2,7 @@
 
 ;; Import guix module.
 
-(use-modules (gnu) (srfi srfi-1))
+(use-modules (gnu) (srfi srfi-1) (gnu packages wm))
 (use-service-modules desktop networking ssh sddm xorg)
 
 ;; Import nonfree linux module.
@@ -36,7 +36,6 @@
 	  "grim"
 	  "neofetch"
 	  "alsa-utils"
-	  "librime"
 	  "rofi"
 	  "btrfs-progs"
 	  "git"
@@ -47,6 +46,8 @@
 	  "alacritty"
 	  "rust"
 	  "font-awesome"
+	  "font-adobe-source-han-sans"
+	  "emacs-rime"
           "imv"
 	  "go"))
    %base-packages))
@@ -56,6 +57,7 @@
   (cons*
    (service openssh-service-type)
    (service sddm-service-type)
+   (screen-locker-service swaylock)
    (modify-services
     ;; Remove GDM.
     (remove (lambda (service)
