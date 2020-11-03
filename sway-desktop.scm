@@ -13,7 +13,8 @@
  ;; Base system config.
  (kernel linux)
  (initrd microcode-initrd)
- (firmware (list linux-firmware))
+ (firmware (cons* iwlwifi-firmware
+                 %base-firmware))
  (locale "en_US.utf8")
  (timezone "Asia/Shanghai")
  (keyboard-layout (keyboard-layout "us"))
