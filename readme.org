@@ -1,0 +1,30 @@
+* Install
+** Partition Disk
+   #+begin_src shell
+     mkfs.fat -F32 /dev/sda1
+     cryptsetup luksFormat /dev/sda2
+     cryptsetup open /dev/sda2 root
+     mkfs.btrfs -L root /dev/mapper/root
+     mount -o compress=zstd /dev/mapper/root /mnt
+     mkdir -p /mnt/boot/efi
+     mount /dev/sda1 /mnt/boot/efi
+   #+end_src
+** Swap
+   #+begin_src shell
+     mkdir /mnt/var
+     truncate -s 0 /mnt/var/swapfile
+     chattr +C /mnt/var/swapfile
+     fallocate -l 8G /mnt/var/swapfile
+     chmod 600 /mnt/var/swapfile
+     mkswap /mnt/var/swapfile
+   #+end_src
+** Configure
+   #+begin_src shell
+     mkdir /mnt/etc
+     cp guix/sway-desktop.scm /mnt/etc/config.scm
+   #+end_src
+** Final
+   #+begin_src shell
+     herd start cow-store /mnt
+     guix system init /mnt/etc/config.scm /mnt
+   #+end_src
