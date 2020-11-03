@@ -17,6 +17,7 @@
      fallocate -l 8G /mnt/var/swapfile
      chmod 600 /mnt/var/swapfile
      mkswap /mnt/var/swapfile
+     swapon /mnt/var/swapfile
    #+end_src
 ** Configure
    #+begin_src shell
