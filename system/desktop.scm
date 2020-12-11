@@ -1,7 +1,7 @@
 ;; this is my guix configuration in qemu
 
 ;; Import guix module.
-(use-modules (gnu) (rnrs lists))
+(use-modules (gnu) (srfi srfi-1) (gnu services xorg))
 (use-service-modules desktop networking ssh)
 
 (operating-system
@@ -24,7 +24,6 @@
    (map specification->package
 	`("nss-certs"
 	  "ranger"
-	  "sway"
 	  "neofetch"
 	  "rofi"
 	  "btrfs-progs"
@@ -32,17 +31,18 @@
 	  "emacs"
 	  "alacritty"))
    %base-packages))
- 
+
  ;; Base services
   (services
   (cons*
    (service openssh-service-type)
+   (service slim-service-type)
    (modify-services
     ;; Remove GDM.
     (remove (lambda (service)
               (eq? (service-kind service) gdm-service-type))
             %desktop-services))))
-  
+
  ;; Bootloader
  (bootloader
   (bootloader-configuration
@@ -53,12 +53,12 @@
  (file-systems
   (cons* (file-system
           (mount-point "/boot/efi")
-          (device (uuid "F710-6481" 'fat32))
+          (device (uuid "CA6E-3C2A" 'fat32))
           (type "vfat"))
          (file-system
           (mount-point "/")
           (device
-           (uuid "45e10aab-3534-4b5c-8291-26e9decd5a79"
+           (uuid "8cac0fed-553d-483f-b39f-a8168d28effe"
                  'btrfs))
 	  (options "compress-force=zstd")
           (type "btrfs"))
