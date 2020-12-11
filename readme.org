@@ -22,7 +22,7 @@
 ** Configure
    #+begin_src shell
      mkdir /mnt/etc
-     cp guix/sway-desktop.scm /mnt/etc/config.scm
+     cp guix/system/sway.scm /mnt/etc/config.scm
    #+end_src
 ** Final
    #+begin_src shell

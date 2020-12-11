@@ -1,8 +1,8 @@
 ;; this is my guix configuration in qemu
 
 ;; Import guix module.
-(use-modules (gnu))
-(use-service-modules desktop networking ssh sddm xorg)
+(use-modules (gnu) (rnrs lists))
+(use-service-modules desktop networking ssh)
 
 (operating-system
  ;; Base system config.
@@ -24,6 +24,7 @@
    (map specification->package
 	`("nss-certs"
 	  "ranger"
+	  "sway"
 	  "neofetch"
 	  "rofi"
 	  "btrfs-progs"
@@ -36,7 +37,6 @@
   (services
   (cons*
    (service openssh-service-type)
-   (service sddm-service-type)
    (modify-services
     ;; Remove GDM.
     (remove (lambda (service)
@@ -53,12 +53,12 @@
  (file-systems
   (cons* (file-system
           (mount-point "/boot/efi")
-          (device (uuid "D1AB-AC56" 'fat32))
+          (device (uuid "F710-6481" 'fat32))
           (type "vfat"))
          (file-system
           (mount-point "/")
           (device
-           (uuid "984421b9-11f5-4227-8472-2f57382fa1cc"
+           (uuid "45e10aab-3534-4b5c-8291-26e9decd5a79"
                  'btrfs))
 	  (options "compress-force=zstd")
           (type "btrfs"))
