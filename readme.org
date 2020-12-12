@@ -1,4 +1,4 @@
-* Install
+* Install System
 ** Partition Disk
    #+begin_src shell
      mkfs.fat -F32 /dev/sda1
@@ -35,4 +35,5 @@
   export GUIX_PACKAGE_PATH=/path/to/guix/packages
   guix show my-dwm #verify my-dwm package
   guix install my-dwm
+  reboot #Slim can start dwm xsession
   #+end_src
