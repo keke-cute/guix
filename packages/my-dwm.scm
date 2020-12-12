@@ -9,7 +9,7 @@
   (package
    (inherit dwm)
    (name "my-dwm")
-   (version "1.0.0")
+   (version "fbfc3da125f93034779b22d35befbd09be5b1d6d")
    (source
     (origin
      (method git-fetch)
@@ -19,4 +19,4 @@
      (file-name (git-file-name name version))
      (sha256
       (base32
-       "111xx222cilx333nj444d4gf8pficjj40jnmfkiwl7ngznjxwkyw"))))))
+       "0i72jbs1k49r4f4yx8k9144fiyc4213f1bw79cxjaffjsm83vkvd"))))))

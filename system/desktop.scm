@@ -1,4 +1,4 @@
-;; this is my guix configuration in qemu
+;; This is my guix configuration
 
 ;; Import guix module.
 (use-modules (gnu) (srfi srfi-1) (gnu services xorg))
