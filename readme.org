@@ -28,6 +28,7 @@
    #+begin_src shell
      herd start cow-store /mnt
      guix system init /mnt/etc/config.scm /mnt
+     reboot
    #+end_src
 * Install My Patched DWM
   #+begin_src shell
