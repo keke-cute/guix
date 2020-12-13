@@ -22,14 +22,27 @@
  (packages
   (append
    (map specification->package
-	`("nss-certs"
+	`(;; Basic Tools
+	  "nss-certs"
 	  "ranger"
 	  "neofetch"
-	  "rofi"
 	  "btrfs-progs"
 	  "git"
-	  "emacs"
-	  "alacritty"))
+	  "htop"
+	  "flameshot"
+	  "feh"
+	  "picom"
+	  ;; Borrwser
+	  "icecat"
+	  ;; Languags
+	  "go"	  
+	  "ghc"	  
+	  ;; Emacs and Packages
+	  "emacs-rime"
+	  "emacs-telega"
+	  "emacs-vterm"
+	  "emacs-exwm"
+	  "emacs"))
    %base-packages))
 
  ;; Base services
@@ -53,12 +66,12 @@
  (file-systems
   (cons* (file-system
           (mount-point "/boot/efi")
-          (device (uuid "CA6E-3C2A" 'fat32))
+          (device (uuid "E7E0-A829" 'fat32))
           (type "vfat"))
          (file-system
           (mount-point "/")
           (device
-           (uuid "8cac0fed-553d-483f-b39f-a8168d28effe"
+           (uuid "8dac5ac5-9552-446e-833c-7ff64f69f5b5"
                  'btrfs))
 	  (options "compress-force=zstd")
           (type "btrfs"))
