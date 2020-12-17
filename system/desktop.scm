@@ -24,6 +24,7 @@
    (map specification->package
 	`(;; Basic Tools
 	  "nss-certs"
+	  "tmux"
 	  "ranger"
 	  "neofetch"
 	  "btrfs-progs"
