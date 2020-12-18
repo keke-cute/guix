@@ -9,7 +9,7 @@
  (locale "en_US.utf8")
  (timezone "Asia/Shanghai")
  (keyboard-layout (keyboard-layout "us"))
- (host-name "playground")
+ (host-name "PlayGuix")
  (users (cons* (user-account
                 (name "keke")
                 (comment "Shike Liu")
@@ -34,11 +34,7 @@
 	  "go"	  
 	  "ghc"	  
 	  ;; Emacs and Packages
-	  "emacs-rime"
-	  "emacs-telega"
-	  "emacs-vterm"
-	  "emacs-exwm"
-	  "emacs"))
+	  "emacs-no-x"))
    %base-packages))
 
  ;; Base services
