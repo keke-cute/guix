@@ -4,8 +4,16 @@
 (use-modules (gnu) (srfi srfi-1) (gnu services xorg))
 (use-service-modules desktop networking ssh)
 
+;; Import nonfree linux module.
+(use-modules (nongnu packages linux)
+             (nongnu system linux-initrd))
+
 (operating-system
  ;; Base system config.
+ (kernel linux)
+ (initrd microcode-initrd)
+ (firmware (cons* iwlwifi-firmware
+                 %base-firmware)) 
  (locale "en_US.utf8")
  (timezone "Asia/Shanghai")
  (keyboard-layout (keyboard-layout "us"))
@@ -64,16 +72,22 @@
    (target "/boot/efi")))
 
  ;;FileSystem
+ (mapped-devices
+  (list (mapped-device
+         (source
+          (uuid "46fcb586-6758-441c-84ff-b7a43777bd81"))
+         (target "root")
+         (type luks-device-mapping))))
  (file-systems
   (cons* (file-system
-          (mount-point "/boot/efi")
-          (device (uuid "E7E0-A829" 'fat32))
-          (type "vfat"))
-         (file-system
           (mount-point "/")
-          (device
-           (uuid "8dac5ac5-9552-446e-833c-7ff64f69f5b5"
-                 'btrfs))
+          (device "/dev/mapper/root")
+          (type "btrfs")
 	  (options "compress-force=zstd")
-          (type "btrfs"))
-         %base-file-systems)))
+          (dependencies mapped-devices))
+         (file-system
+          (mount-point "/boot/efi")
+          (device (uuid "0826-DC04" 'fat32))
+          (type "vfat"))
+         %base-file-systems))
+ (swap-devices '("/var/swapfile")))

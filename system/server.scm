@@ -1,19 +1,11 @@
 ;; This is my guix configuration
 
 ;; Import guix module.
-(use-modules (gnu) (srfi srfi-1) (gnu services xorg))
-(use-service-modules desktop networking ssh)
-
-;; Import nonfree linux module.
-(use-modules (nongnu packages linux)
-             (nongnu system linux-initrd))
+(use-modules (gnu) (srfi srfi-1))
+(use-service-modules networking ssh)
 
 (operating-system
  ;; Base system config.
- (kernel linux)
- (initrd microcode-initrd)
- (firmware (cons* iwlwifi-firmware
-                 %base-firmware)) 
  (locale "en_US.utf8")
  (timezone "Asia/Shanghai")
  (keyboard-layout (keyboard-layout "us"))
@@ -38,11 +30,6 @@
 	  "btrfs-progs"
 	  "git"
 	  "htop"
-	  "flameshot"
-	  "feh"
-	  "picom"
-	  ;; Borrwser
-	  "icecat"
 	  ;; Languags
 	  "go"	  
 	  "ghc"	  
@@ -57,13 +44,7 @@
  ;; Base services
   (services
   (cons*
-   (service openssh-service-type)
-   (service slim-service-type)
-   (modify-services
-    ;; Remove GDM.
-    (remove (lambda (service)
-              (eq? (service-kind service) gdm-service-type))
-            %desktop-services))))
+   (service openssh-service-type)))
 
  ;; Bootloader
  (bootloader
@@ -72,22 +53,16 @@
    (target "/boot/efi")))
 
  ;;FileSystem
- (mapped-devices
-  (list (mapped-device
-         (source
-          (uuid "46fcb586-6758-441c-84ff-b7a43777bd81"))
-         (target "root")
-         (type luks-device-mapping))))
  (file-systems
   (cons* (file-system
-          (mount-point "/")
-          (device "/dev/mapper/root")
-          (type "btrfs")
-	  (options "compress-force=zstd")
-          (dependencies mapped-devices))
-         (file-system
           (mount-point "/boot/efi")
-          (device (uuid "0826-DC04" 'fat32))
+          (device (uuid "E7E0-A829" 'fat32))
           (type "vfat"))
-         %base-file-systems))
- (swap-devices '("/var/swapfile")))
+         (file-system
+          (mount-point "/")
+          (device
+           (uuid "8dac5ac5-9552-446e-833c-7ff64f69f5b5"
+                 'btrfs))
+	  (options "compress-force=zstd")
+          (type "btrfs"))
+         %base-file-systems)))
