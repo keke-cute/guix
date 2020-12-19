@@ -1,7 +1,7 @@
-;; This is my guix configuration
+;; Testing server configuration
 
 ;; Import guix module.
-(use-modules (gnu) (srfi srfi-1))
+(use-modules (gnu))
 (use-service-modules networking ssh)
 
 (operating-system
@@ -38,9 +38,11 @@
    %base-packages))
 
  ;; Base services
-  (services
-  (cons*
-   (service openssh-service-type)))
+ (services
+  (append
+   (list (service openssh-service-type)
+         (service dhcp-client-service-type))
+   %base-services))
 
  ;; Bootloader
  (bootloader
