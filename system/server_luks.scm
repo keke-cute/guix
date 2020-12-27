@@ -30,6 +30,7 @@
 	  "btrfs-progs"
 	  "git"
 	  "htop"
+	  "wpa-supplicant"
 	  ;; Languags
 	  "go"	  
 	  "ghc"	  
@@ -41,7 +42,11 @@
  (services
   (append
    (list (service openssh-service-type)
-         (service dhcp-client-service-type))
+         (service dhcp-client-service-type)
+	 (service wpa-supplicant-service-type 
+		  (wpa-supplicant-configuration 
+		   (interface "wlp2s0")
+		   (config-file "/home/keke/.wpa_supplicant.conf"))))
    %base-services))
 
  ;; Bootloader
