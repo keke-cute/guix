@@ -17,7 +17,7 @@
 ;;; You should have received a copy of the GNU General Public License
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
-(define-module (games packages minecraft)
+(define-module (minecraft)
   #:use-module (guix build-system cmake)
   #:use-module (gnu packages compression)
   #:use-module (gnu packages pulseaudio)
